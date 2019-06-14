@@ -61,7 +61,7 @@ class Note extends Component {
         return (
             <div className="note">
                 <form onSubmit={this.saveEdit}>
-                    <textarea id="note-text-edit" ref={input => this._newText = input} />
+                    <input id="note-text-edit" ref={input => this._newText = input} defaultValue={this.props.children} />
                     <button id="save"><FaSave /></button>
                 </form>
             </div>
