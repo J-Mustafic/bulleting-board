@@ -13,11 +13,9 @@ class Note extends Component {
         this.renderForm = this.renderForm.bind(this);
         this.renderDisplay = this.renderDisplay.bind(this);
         this.saveEdit = this.saveEdit.bind(this);
-        this.editNoteText = this.editNoteText.bind(this);
         this.state = {
-            editing: false,
-            text: props.children
-        }
+            editing: false
+        };
     }
 
     render() {
@@ -31,44 +29,40 @@ class Note extends Component {
     renderDisplay() {
         return (
             <div className="note">
-                <p onClick={this.edit}>{this.state.text}</p>
+                <p onClick={this.edit}>{this.props.children}</p>
                 <span>
                     <button id="edit" onClick={this.edit}><FaPencilAlt /></button>
                     <button id="remove" onClick={this.remove}><FaTrash /></button>
                 </span>
             </div>
-        )
+        );
     }
 
     edit() {
         this.setState({
             editing: true
-        })
+        });
     }
 
-    remove() {
-        alert('remove')
+    remove(e) {
+        e.preventDefault();
+        this.props.onRemove(this.props.index);
     }
 
-    saveEdit() {
+    saveEdit(e) {
+        e.preventDefault();
+        this.props.onChange(this._newText.value, this.props.index);
         this.setState({
             editing: false
-        })
-    }
-
-    editNoteText() {
-        var textArea = document.getElementById('note-text-edit');
-        this.setState({
-            text: textArea.value
-        })
+        });
     }
 
     renderForm() {
         return (
             <div className="note">
-                <form>
-                    <textarea id="note-text-edit" onChange={this.editNoteText} value={this.state.text} />
-                    <button onClick={this.saveEdit}><FaSave /></button>
+                <form onSubmit={this.saveEdit}>
+                    <textarea id="note-text-edit" ref={input => this._newText = input} />
+                    <button id="save"><FaSave /></button>
                 </form>
             </div>
         )
