@@ -29,7 +29,7 @@ class Note extends Component {
     renderDisplay() {
         return (
             <div className="note">
-                <p onClick={this.edit}>{this.props.children}</p>
+                <p onMouseUp={this.edit}>{this.props.children}</p>
                 <span>
                     <button id="edit" onClick={this.edit}><FaPencilAlt /></button>
                     <button id="remove" onClick={this.remove}><FaTrash /></button>
