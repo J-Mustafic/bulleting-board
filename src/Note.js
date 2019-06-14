@@ -16,7 +16,7 @@ class Note extends Component {
         this.editNoteText = this.editNoteText.bind(this);
         this.state = {
             editing: false,
-            text: "Hello world!"
+            text: props.children
         }
     }
 
@@ -67,7 +67,7 @@ class Note extends Component {
         return (
             <div className="note">
                 <form>
-                    <textarea id='note-text-edit' onChange={this.editNoteText} value={this.state.text} />
+                    <textarea id="note-text-edit" onChange={this.editNoteText} value={this.state.text} />
                     <button onClick={this.saveEdit}><FaSave /></button>
                 </form>
             </div>
