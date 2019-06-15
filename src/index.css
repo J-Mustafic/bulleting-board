@@ -37,15 +37,23 @@ div.note p {
     font-family: 'Reenie Beanie', cursive,Arial;
 }
 
-div.note:hover > span {
+div.note:hover > span.buttons {
     opacity: 1;
 }
 
-div.note > span {
+div.note > span.buttons {
     position: absolute;
     bottom: 2px;
     opacity: 0;
     transition: opacity .25s linear;
+}
+
+div.note > span.note-id {
+  position: absolute;
+  font-size: 2rem;
+  top: 2px;
+  left: 2px;
+  color: rgb(165, 165, 165);
 }
 
 div.note button {
@@ -69,13 +77,12 @@ div.note {
   position:absolute;  
   width: 15rem;    
   margin: 25px;    
-  min-height:12rem;
+  min-height:15rem;
   max-height:15rem; 
   border:1px solid #E8E8E8;  
-  border-top:60px solid #fdfd86;
   font-family:'Reenie Beanie';    
   font-size:3em;      
-  border-bottom-right-radius: 60px 5px;
+  border-bottom-right-radius: 60px 10px;
   display:inline-block;    
   box-shadow:2px 5px 12px rgba(0, 0, 0, 0.40);
    background: #ffff88; /* Old browsers */

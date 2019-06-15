@@ -31,8 +31,9 @@ class Note extends Component {
         return (
             <Draggable defaultPosition={this.position}>
                 <div className="note">
+                    <span className="note-id">#{this.props.index}</span>
                     <p onMouseUp={this.edit}>{this.props.children}</p>
-                    <span>
+                    <span className="buttons">
                         <button id="edit" className="button" onClick={this.edit}><FaPencilAlt /></button>
                         <button id="remove" className="button" onClick={this.remove}><FaTrash /></button>
                     </span>
