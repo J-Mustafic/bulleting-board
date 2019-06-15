@@ -13,6 +13,9 @@ class Note extends Component {
         this.renderForm = this.renderForm.bind(this);
         this.renderDisplay = this.renderDisplay.bind(this);
         this.saveEdit = this.saveEdit.bind(this);
+        this.startDrag = this.startDrag.bind(this);
+        this.stopDrag = this.stopDrag.bind(this);
+        this.drag = this.drag.bind(this);
         this.state = {
             editing: false
         };
@@ -23,12 +26,11 @@ class Note extends Component {
             return this.renderForm();
         else
             return this.renderDisplay();
-
     }
 
     renderDisplay() {
         return (
-            <div className="note">
+            <div className="note" onMouseDown={this.startDrag} onMouseUp={this.stopDrag} onMouseMove={this.drag}>
                 <p onMouseUp={this.edit}>{this.props.children}</p>
                 <span>
                     <button id="edit" onClick={this.edit}><FaPencilAlt /></button>
@@ -36,6 +38,31 @@ class Note extends Component {
                 </span>
             </div>
         );
+    }
+
+    startDrag(e) {
+        e.preventDefault();
+        this.setState({
+            dragging: true
+        })
+    }
+
+    stopDrag() {
+        this.setState({
+            dragging: false
+        })
+    }
+
+    drag(e) {
+        if (!this.state.dragging) return;
+        var note = e.target;
+        var event = window.event;
+        var mouseX = event.clientX;
+        var mouseY = event.clientY;
+        var offsetX = mouseX;
+        var offsetY = mouseY;
+        note.style.left = (mouseX - 20) + 'px';
+        note.style.top = (mouseY - 20) + 'px';
     }
 
     edit() {
@@ -61,7 +88,9 @@ class Note extends Component {
         return (
             <div className="note">
                 <form onSubmit={this.saveEdit}>
-                    <input id="note-text-edit" ref={input => this._newText = input} defaultValue={this.props.children} />
+                    <input id="note-text-edit"
+                        ref={input => this._newText = input}
+                        defaultValue={this.props.children} />
                     <button id="save"><FaSave /></button>
                 </form>
             </div>
