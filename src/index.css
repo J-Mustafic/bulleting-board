@@ -18,13 +18,13 @@ div.board {
     background-color: brown;
     width: 100%;
     height: 1000px;
-    background: #eab92d;
-    background: -moz-radial-gradient(center, ellipse cover, #eab92d 57%, #c79810 99%);
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(57%, #eab92d), color-stop(99%, #c79810));
-    background: -webkit-radial-gradient(center, ellipse cover, #eab92d 57%, #c79810 99%);
-    background: -o-radial-gradient(center, ellipse cover, #eab92d 57%, #c79810 99%);
-    background: -ms-radial-gradient(center, ellipse cover, #eab92d 57%, #c79810 99%);
-    background: radial-gradient(ellipse at center, #eab92d 57%, #c79810 99%);
+    background: #e2e2e2;
+    background: -moz-radial-gradient(center, ellipse cover, #e2e2e2 57%, #dadada 99%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(57%, #e2e2e2), color-stop(99%, #dadada));
+    background: -webkit-radial-gradient(center, ellipse cover, #e2e2e2 57%, #dadada 99%);
+    background: -o-radial-gradient(center, ellipse cover, #e2e2e2 57%, #dadada 99%);
+    background: -ms-radial-gradient(center, ellipse cover, #e2e2e2 57%, #dadada 99%);
+    background: radial-gradient(ellipse at center, #e2e2e2 57%, #dadada 99%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eab92d', endColorstr='#c79810', GradientType=1);
 }
 

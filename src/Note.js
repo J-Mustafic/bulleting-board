@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FaPencilAlt } from 'react-icons/fa';
+import Draggable from 'react-draggable';
 import { FaTrash } from 'react-icons/fa';
 import { FaSave } from 'react-icons/fa';
 
@@ -13,6 +14,7 @@ class Note extends Component {
         this.renderForm = this.renderForm.bind(this);
         this.renderDisplay = this.renderDisplay.bind(this);
         this.saveEdit = this.saveEdit.bind(this);
+        this.randomBetween = this.randomBetween.bind(this);
         this.state = {
             editing: false
         };
@@ -23,19 +25,49 @@ class Note extends Component {
             return this.renderForm();
         else
             return this.renderDisplay();
-
     }
 
     renderDisplay() {
         return (
-            <div className="note">
-                <p onMouseUp={this.edit}>{this.props.children}</p>
-                <span>
-                    <button id="edit" onClick={this.edit}><FaPencilAlt /></button>
-                    <button id="remove" onClick={this.remove}><FaTrash /></button>
-                </span>
-            </div>
+            <Draggable defaultPosition={this.position}>
+                <div className="note">
+                    <p onMouseUp={this.edit}>{this.props.children}</p>
+                    <span>
+                        <button id="edit" onClick={this.edit}><FaPencilAlt /></button>
+                        <button id="remove" onClick={this.remove}><FaTrash /></button>
+                    </span>
+                </div>
+            </Draggable>
         );
+    }
+
+    componentWillMount() {
+        this.position = {
+            x: this.randomBetween(150, window.innerWidth - 150),
+            y: this.randomBetween(150, window.innerHeight - 150)
+        }
+    }
+
+    componentDidUpdate() {
+        var textArea;
+        if (this.state.editing) {
+            textArea = this._newText;
+            textArea.focus();
+        }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return (
+            this.props.children !== nextProps.children ||
+            this.state !== nextState
+        )
+    }
+
+    randomBetween(x, y, s) {
+        if (s)
+            return x + Math.ceil(Math.random() * (y - x)) + s;
+        else
+            return x + Math.ceil(Math.random() * (y - x));
     }
 
     edit() {
@@ -59,12 +91,16 @@ class Note extends Component {
 
     renderForm() {
         return (
-            <div className="note">
-                <form onSubmit={this.saveEdit}>
-                    <input id="note-text-edit" ref={input => this._newText = input} defaultValue={this.props.children} />
-                    <button id="save"><FaSave /></button>
-                </form>
-            </div>
+            <Draggable>
+                <div className="note">
+                    <form onSubmit={this.saveEdit}>
+                        <input id="note-text-edit"
+                            ref={input => this._newText = input}
+                            defaultValue={this.props.children} />
+                        <button id="save"><FaSave /></button>
+                    </form>
+                </div>
+            </Draggable>
         )
     }
 

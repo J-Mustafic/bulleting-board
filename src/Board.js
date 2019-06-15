@@ -16,13 +16,17 @@ class Board extends Component {
         this.generateId = this.generateId.bind(this);
     }
 
-    addNote() {
+    componentWillMount() {
+
+    }
+
+    addNote(text) {
         this.setState(prevState => ({
             notes: [
                 ...prevState.notes,
                 {
                     id: this.generateId(),
-                    note: 'New note!'
+                    note: text
                 }
             ]
         }))
@@ -61,7 +65,7 @@ class Board extends Component {
     render() {
         return (
             <div className="board">
-                <button id="add" onClick={this.addNote}>Add new <FaPlus /></button>
+                <button id="add" onClick={this.addNote.bind(this, "New note!")}>Add new <FaPlus /></button>
                 {this.state.notes.map(this.eachNote)}
             </div>
         )
