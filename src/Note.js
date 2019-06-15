@@ -33,8 +33,8 @@ class Note extends Component {
                 <div className="note">
                     <p onMouseUp={this.edit}>{this.props.children}</p>
                     <span>
-                        <button id="edit" onClick={this.edit}><FaPencilAlt /></button>
-                        <button id="remove" onClick={this.remove}><FaTrash /></button>
+                        <button id="edit" className="button" onClick={this.edit}><FaPencilAlt /></button>
+                        <button id="remove" className="button" onClick={this.remove}><FaTrash /></button>
                     </span>
                 </div>
             </Draggable>
@@ -43,8 +43,8 @@ class Note extends Component {
 
     componentWillMount() {
         this.position = {
-            x: this.randomBetween(150, window.innerWidth - 150),
-            y: this.randomBetween(150, window.innerHeight - 150)
+            x: this.randomBetween(200, window.innerWidth / 2 - 200),
+            y: this.randomBetween(200, window.innerHeight - 400)
         }
     }
 
@@ -97,7 +97,7 @@ class Note extends Component {
                         <input id="note-text-edit"
                             ref={input => this._newText = input}
                             defaultValue={this.props.children} />
-                        <button id="save"><FaSave /></button>
+                        <button className="button" id="save"><FaSave /></button>
                     </form>
                 </div>
             </Draggable>
