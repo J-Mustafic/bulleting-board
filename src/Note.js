@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FaPencilAlt } from 'react-icons/fa';
+import Draggable from 'react-draggable';
 import { FaTrash } from 'react-icons/fa';
 import { FaSave } from 'react-icons/fa';
 
@@ -13,9 +14,6 @@ class Note extends Component {
         this.renderForm = this.renderForm.bind(this);
         this.renderDisplay = this.renderDisplay.bind(this);
         this.saveEdit = this.saveEdit.bind(this);
-        this.startDrag = this.startDrag.bind(this);
-        this.stopDrag = this.stopDrag.bind(this);
-        this.drag = this.drag.bind(this);
         this.randomBetween = this.randomBetween.bind(this);
         this.state = {
             editing: false
@@ -31,21 +29,22 @@ class Note extends Component {
 
     renderDisplay() {
         return (
-            <div className="note" onMouseDown={this.startDrag} onMouseUp={this.stopDrag} style={this.style}>
-                <p onMouseUp={this.edit}>{this.props.children}</p>
-                <span>
-                    <button id="edit" onClick={this.edit}><FaPencilAlt /></button>
-                    <button id="remove" onClick={this.remove}><FaTrash /></button>
-                </span>
-            </div>
+            <Draggable defaultPosition={this.position}>
+                <div className="note">
+                    <p onMouseUp={this.edit}>{this.props.children}</p>
+                    <span>
+                        <button id="edit" onClick={this.edit}><FaPencilAlt /></button>
+                        <button id="remove" onClick={this.remove}><FaTrash /></button>
+                    </span>
+                </div>
+            </Draggable>
         );
     }
 
     componentWillMount() {
-        this.style = {
-            right: this.randomBetween(0, window.innerWidth - 150, 'px'),
-            top: this.randomBetween(0, window.innerHeight - 150, 'px'),
-            transform: `rotate(${this.randomBetween(-15, 15, 'deg')})`
+        this.position = {
+            x: this.randomBetween(150, window.innerWidth - 150),
+            y: this.randomBetween(150, window.innerHeight - 150)
         }
     }
 
@@ -54,7 +53,6 @@ class Note extends Component {
         if (this.state.editing) {
             textArea = this._newText;
             textArea.focus();
-            textArea.select();
         }
     }
 
@@ -66,35 +64,10 @@ class Note extends Component {
     }
 
     randomBetween(x, y, s) {
-        return x + Math.ceil(Math.random() * (y - x)) + s;
-    }
-
-    startDrag(e) {
-        e.preventDefault();
-        this.setState({
-            dragging: true
-        })
-        this._mouseX = e.clientX;
-        this._mouseY = e.clientY;
-        this._target = e.target;
-        document.onmousemove = this.drag;
-    }
-
-    stopDrag() {
-        this.setState({
-            dragging: false
-        })
-    }
-
-    drag(e) {
-        if (!this.state.dragging) return;
-        var note = this._target;
-        var pos1 = this._mouseX - e.clientX;
-        var pos2 = this._mouseY - e.clientY;
-        this._mouseX = e.clientX;
-        this._mouseY = e.clientY;
-        note.style.left = (note.offsetLeft - pos1) + 'px';
-        note.style.top = (note.offsetTop - pos2) + 'px';
+        if (s)
+            return x + Math.ceil(Math.random() * (y - x)) + s;
+        else
+            return x + Math.ceil(Math.random() * (y - x));
     }
 
     edit() {
@@ -118,14 +91,16 @@ class Note extends Component {
 
     renderForm() {
         return (
-            <div className="note" style={this.style}>
-                <form onSubmit={this.saveEdit}>
-                    <input id="note-text-edit"
-                        ref={input => this._newText = input}
-                        defaultValue={this.props.children} />
-                    <button id="save"><FaSave /></button>
-                </form>
-            </div>
+            <Draggable>
+                <div className="note">
+                    <form onSubmit={this.saveEdit}>
+                        <input id="note-text-edit"
+                            ref={input => this._newText = input}
+                            defaultValue={this.props.children} />
+                        <button id="save"><FaSave /></button>
+                    </form>
+                </div>
+            </Draggable>
         )
     }
 
