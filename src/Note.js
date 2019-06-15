@@ -16,6 +16,7 @@ class Note extends Component {
         this.startDrag = this.startDrag.bind(this);
         this.stopDrag = this.stopDrag.bind(this);
         this.drag = this.drag.bind(this);
+        this.randomBetween = this.randomBetween.bind(this);
         this.state = {
             editing: false
         };
@@ -30,7 +31,7 @@ class Note extends Component {
 
     renderDisplay() {
         return (
-            <div className="note" onMouseDown={this.startDrag} onMouseUp={this.stopDrag} >
+            <div className="note" onMouseDown={this.startDrag} onMouseUp={this.stopDrag} style={this.style}>
                 <p onMouseUp={this.edit}>{this.props.children}</p>
                 <span>
                     <button id="edit" onClick={this.edit}><FaPencilAlt /></button>
@@ -38,6 +39,34 @@ class Note extends Component {
                 </span>
             </div>
         );
+    }
+
+    componentWillMount() {
+        this.style = {
+            right: this.randomBetween(0, window.innerWidth - 150, 'px'),
+            top: this.randomBetween(0, window.innerHeight - 150, 'px'),
+            transform: `rotate(${this.randomBetween(-15, 15, 'deg')})`
+        }
+    }
+
+    componentDidUpdate() {
+        var textArea;
+        if (this.state.editing) {
+            textArea = this._newText;
+            textArea.focus();
+            textArea.select();
+        }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return (
+            this.props.children !== nextProps.children ||
+            this.state !== nextState
+        )
+    }
+
+    randomBetween(x, y, s) {
+        return x + Math.ceil(Math.random() * (y - x)) + s;
     }
 
     startDrag(e) {
@@ -89,7 +118,7 @@ class Note extends Component {
 
     renderForm() {
         return (
-            <div className="note">
+            <div className="note" style={this.style}>
                 <form onSubmit={this.saveEdit}>
                     <input id="note-text-edit"
                         ref={input => this._newText = input}
