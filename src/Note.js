@@ -43,8 +43,8 @@ class Note extends Component {
 
     componentWillMount() {
         this.position = {
-            x: this.randomBetween(200, window.innerWidth / 2 - 200),
-            y: this.randomBetween(200, window.innerHeight - 400)
+            x: this.randomBetween(0, window.innerWidth / 2 - 400),
+            y: this.randomBetween(0, window.innerHeight - 400)
         }
     }
 

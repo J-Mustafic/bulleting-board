@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Note from './Note';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlusCircle } from 'react-icons/fa';
 
 class Board extends Component {
 
@@ -65,7 +65,7 @@ class Board extends Component {
     render() {
         return (
             <div className="board">
-                <button id="add" className="button" onClick={this.addNote.bind(this, "New note!")}>Add new <FaPlus /></button>
+                <p id="add" onClick={this.addNote.bind(this, "New note!")}><FaPlusCircle /></p>
                 {this.state.notes.map(this.eachNote)}
             </div>
         )
