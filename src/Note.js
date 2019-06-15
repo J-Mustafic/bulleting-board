@@ -30,7 +30,7 @@ class Note extends Component {
 
     renderDisplay() {
         return (
-            <div className="note" onMouseDown={this.startDrag} onMouseUp={this.stopDrag} onMouseMove={this.drag}>
+            <div className="note" onMouseDown={this.startDrag} onMouseUp={this.stopDrag} >
                 <p onMouseUp={this.edit}>{this.props.children}</p>
                 <span>
                     <button id="edit" onClick={this.edit}><FaPencilAlt /></button>
@@ -45,6 +45,10 @@ class Note extends Component {
         this.setState({
             dragging: true
         })
+        this._mouseX = e.clientX;
+        this._mouseY = e.clientY;
+        this._target = e.target;
+        document.onmousemove = this.drag;
     }
 
     stopDrag() {
@@ -55,14 +59,13 @@ class Note extends Component {
 
     drag(e) {
         if (!this.state.dragging) return;
-        var note = e.target;
-        var event = window.event;
-        var mouseX = event.clientX;
-        var mouseY = event.clientY;
-        var offsetX = mouseX;
-        var offsetY = mouseY;
-        note.style.left = (mouseX - 20) + 'px';
-        note.style.top = (mouseY - 20) + 'px';
+        var note = this._target;
+        var pos1 = this._mouseX - e.clientX;
+        var pos2 = this._mouseY - e.clientY;
+        this._mouseX = e.clientX;
+        this._mouseY = e.clientY;
+        note.style.left = (note.offsetLeft - pos1) + 'px';
+        note.style.top = (note.offsetTop - pos2) + 'px';
     }
 
     edit() {
