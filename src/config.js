@@ -1,4 +1,4 @@
-const firebaseConfig = {
+const config = {
     apiKey: "AIzaSyCB4TGxcamtAsrl5KRBp2AZZ90_0Ai_eSw",
     authDomain: "tika-board.firebaseapp.com",
     databaseURL: "https://tika-board.firebaseio.com",

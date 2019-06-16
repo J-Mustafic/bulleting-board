@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import Note from './Note';
 import { FaPlusCircle } from 'react-icons/fa';
+import config from './config';
+import Firebase from 'firebase';
 
 class Board extends Component {
 
     constructor(props) {
         super(props);
+        Firebase.initializeApp(config);
         this.state = {
             notes: []
         };
@@ -16,8 +19,26 @@ class Board extends Component {
         this.generateId = this.generateId.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        this.getUserData();
+    }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState !== this.state) {
+            this.writeUserData();
+        }
+    }
+
+    writeUserData = () => {
+        Firebase.database().ref('/').set(this.state);
+    }
+
+    getUserData = () => {
+        let ref = Firebase.database().ref('/');
+        ref.on('value', snapshot => {
+            const state = snapshot.val();
+            this.setState(state);
+        });
     }
 
     addNote(text) {
