@@ -92,7 +92,7 @@ class Note extends Component {
 
     renderForm() {
         return (
-            <Draggable>
+            <Draggable disabled={true}>
                 <div className="note">
                     <form onSubmit={this.saveEdit}>
                         <input id="note-text-edit"
