@@ -54,8 +54,9 @@ class Board extends Component {
     }
 
     generateId() {
-        this._uniqueId = this._uniqueId || 0;
-        return this._uniqueId++;
+        var lastElementIndex = this.state.notes.length - 1;
+        var uniqueId = this.state.notes[lastElementIndex] ? this.state.notes[lastElementIndex].id : 0;
+        return ++uniqueId;
     }
 
     update(newText, i) {
