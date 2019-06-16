@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Reenie+Beanie&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lora&display=swap');
 
 body,
 html,
@@ -164,4 +165,8 @@ div.note:active {
   font-size: 22px;
   width: 90%;
   font-family: 'Reenie Beanie', cursive, Arial;
+}
+
+.nav-logo{
+  width: 2rem;
 }
