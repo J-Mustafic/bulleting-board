@@ -29,7 +29,7 @@ class Note extends Component {
 
     renderDisplay() {
         return (
-            <Draggable defaultPosition={this.position}>
+            <Draggable defaultPosition={this.position} bounds={'.board'}>
                 <div className="note">
                     <span className="note-id">#{this.props.index}</span>
                     <p onMouseUp={this.edit}>{this.props.children}</p>
@@ -38,7 +38,7 @@ class Note extends Component {
                         <button id="remove" className="button" onClick={this.remove}><FaTrash /></button>
                     </span>
                 </div>
-            </Draggable>
+            </Draggable >
         );
     }
 
