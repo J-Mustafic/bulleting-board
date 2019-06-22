@@ -13,6 +13,7 @@
     "react-draggable": "^3.3.0",
     "react-draggable-rotate": "0.0.21",
     "react-icons": "^3.7.0",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1"
   },
   "scripts": {

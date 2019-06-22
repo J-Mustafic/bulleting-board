@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import LogoImage from './images/post-it.png';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 class App extends Component {
 
@@ -18,12 +17,6 @@ class App extends Component {
                         <Nav className="mr-auto">
                             <Nav.Link href="#home">Home</Nav.Link>
                             <Nav.Link href="#boards">Boards</Nav.Link>
-                            <NavDropdown title="Notes" id="collasible-nav-dropdown">
-                                <NavDropdown.Item href="">Add note</NavDropdown.Item>
-                                <NavDropdown.Item href="">Sort notes</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="">Divide board</NavDropdown.Item>
-                            </NavDropdown>
                         </Nav>
                         <Nav>
                             <Nav.Link href="#profile">Profile</Nav.Link>
