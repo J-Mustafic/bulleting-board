@@ -92,7 +92,7 @@ class Board extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container-flex">
                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                     <Navbar.Brand href="#home">
                         <img className="nav-logo" src={LogoImage} alt="logo" />
