@@ -3,12 +3,18 @@ import Note from './Note';
 import { FaPlusCircle } from 'react-icons/fa';
 import config from './config';
 import Firebase from 'firebase';
+import LogoImage from './images/post-it.png';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 class Board extends Component {
 
     constructor(props) {
         super(props);
-        Firebase.initializeApp(config);
+        if (!Firebase.apps.length) {
+            Firebase.initializeApp(config);
+        }
         this.state = {
             notes: []
         };
@@ -86,10 +92,35 @@ class Board extends Component {
 
     render() {
         return (
-            <div className="board">
-                <p id="add" onClick={this.addNote.bind(this, "New note!")}><FaPlusCircle /></p>
-                {this.state.notes.map(this.eachNote)}
+            <div className="container-flex">
+                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                    <Navbar.Brand href="#home">
+                        <img className="nav-logo" src={LogoImage} alt="logo" />
+                    </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="mr-auto">
+                            <Nav.Link href="#home">Home</Nav.Link>
+                            <Nav.Link href="#boards">Boards</Nav.Link>
+                            <NavDropdown title="Notes" id="collasible-nav-dropdown">
+                                <NavDropdown.Item href="" onClick={this.addNote.bind(this, "New note!")}>Add note</NavDropdown.Item>
+                                <NavDropdown.Item href="">Sort notes</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="">Divide board</NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                        <Nav>
+                            <Nav.Link href="#profile">Profile</Nav.Link>
+                            <Nav.Link href="#logout">Log out</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+                <div className="board">
+                    <p id="add" onClick={this.addNote.bind(this, "New note!")}><FaPlusCircle /></p>
+                    {this.state.notes.map(this.eachNote)}
+                </div>
             </div>
+
         )
     }
 
